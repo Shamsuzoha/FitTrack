@@ -118,14 +118,17 @@ const App = {
     document.getElementById('user-screen').classList.remove('active');
     document.getElementById('app-screen').classList.add('active');
     document.getElementById('nav-user').textContent = this.currentUser.Name + ' · ' + this.currentUser.Email;
+    const mobileUser = document.getElementById('mobile-nav-user');
+    if (mobileUser) mobileUser.textContent = this.currentUser.Name;
     this.navigate('dashboard');
   },
 
   navigate(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    // Sync both sidebar nav-items and bottom-nav-items
+    document.querySelectorAll('.nav-item[data-page], .bottom-nav-item[data-page]').forEach(n => n.classList.remove('active'));
     document.getElementById(`page-${page}`).classList.add('active');
-    document.querySelector(`[data-page="${page}"]`).classList.add('active');
+    document.querySelectorAll(`[data-page="${page}"]`).forEach(el => el.classList.add('active'));
     if (page === 'dashboard') Dashboard.load();
     if (page === 'workouts')  Workouts.load();
     if (page === 'nutrition') Nutrition.load();

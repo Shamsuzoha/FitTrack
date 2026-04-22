@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>FitTrack</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
@@ -10,7 +13,7 @@
 </head>
 <body>
 
-<!-- USER SELECT SCREEN -->
+<!-- ── USER SELECT SCREEN ─────────────────────────────────────────────── -->
 <div id="user-screen" class="screen active">
   <div class="user-screen-inner">
     <div class="logo-mark">FT</div>
@@ -27,21 +30,21 @@
       <div class="auth-panel active" id="auth-login">
         <div class="form-group">
           <label class="form-label">Email</label>
-          <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email" />
+          <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email" inputmode="email" />
         </div>
         <div class="form-group">
           <label class="form-label">Password</label>
           <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"
                  onkeydown="if(event.key==='Enter') App.login()" />
         </div>
-        <button class="btn-primary" style="width:100%" onclick="App.login()">Log in</button>
+        <button class="btn-primary" style="width:100%;min-height:46px" onclick="App.login()">Log in</button>
       </div>
 
       <!-- REGISTER -->
       <div class="auth-panel" id="auth-register">
         <div class="form-group">
           <label class="form-label">Email</label>
-          <input type="email" id="reg-email" placeholder="your@email.com" autocomplete="email" />
+          <input type="email" id="reg-email" placeholder="your@email.com" autocomplete="email" inputmode="email" />
         </div>
         <div class="form-group">
           <label class="form-label">Name</label>
@@ -49,7 +52,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Age</label>
-          <input type="number" id="reg-age" placeholder="e.g. 25" min="1" max="120" />
+          <input type="number" id="reg-age" placeholder="e.g. 25" min="1" max="120" inputmode="numeric" />
         </div>
         <div class="form-group">
           <label class="form-label">Password</label>
@@ -60,7 +63,7 @@
           <input type="password" id="reg-confirm" placeholder="Repeat password" autocomplete="new-password"
                  onkeydown="if(event.key==='Enter') App.register()" />
         </div>
-        <button class="btn-primary" style="width:100%" onclick="App.register()">Create account</button>
+        <button class="btn-primary" style="width:100%;min-height:46px" onclick="App.register()">Create account</button>
       </div>
 
       <p class="hint" id="auth-error" style="color:var(--red);min-height:18px"></p>
@@ -68,8 +71,21 @@
   </div>
 </div>
 
-<!-- MAIN APP -->
+<!-- ── MAIN APP ────────────────────────────────────────────────────────── -->
 <div id="app-screen" class="screen">
+
+  <!-- Mobile top header (shown on small screens) -->
+  <header class="mobile-header" id="mobile-header">
+    <div class="mobile-header-logo">FT</div>
+    <div class="mobile-header-user" id="mobile-nav-user"></div>
+    <button class="btn-ghost" style="padding:6px;flex-shrink:0" onclick="App.logout()" title="Log out">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Desktop sidebar -->
   <nav class="sidebar">
     <div class="sidebar-top">
       <div class="nav-logo">FT</div>
@@ -103,6 +119,7 @@
     </div>
   </nav>
 
+  <!-- Main content -->
   <main class="main-content">
     <!-- DASHBOARD -->
     <div class="page active" id="page-dashboard">
@@ -153,7 +170,7 @@
           <h1>Nutrition</h1>
           <p class="page-date" id="nutrition-date-label"></p>
         </div>
-        <div style="display:flex;gap:10px;align-items:center">
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
           <input type="date" id="nutrition-date-picker" onchange="Nutrition.loadDate(this.value)" class="date-picker" />
           <button class="btn-primary" onclick="Nutrition.openAddMeal()">+ Add Meal</button>
         </div>
@@ -180,6 +197,33 @@
       <div id="goals-list"></div>
     </div>
   </main>
+
+  <!-- Mobile bottom navigation -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <div class="bottom-nav-inner">
+      <button class="bottom-nav-item active" data-page="dashboard" onclick="App.navigate('dashboard')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Home</span>
+      </button>
+      <button class="bottom-nav-item" data-page="workouts" onclick="App.navigate('workouts')">
+        <svg viewBox="0 0 24 24"><path d="M6 4v16M18 4v16M3 12h18M3 7h3M18 7h3M3 17h3M18 17h3" stroke-linecap="round"/></svg>
+        <span>Workout</span>
+      </button>
+      <button class="bottom-nav-item" data-page="nutrition" onclick="App.navigate('nutrition')">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8 2 4 6 4 10c0 4 2 7 8 10 6-3 8-6 8-10C20 6 16 2 12 2z"/></svg>
+        <span>Nutrition</span>
+      </button>
+      <button class="bottom-nav-item" data-page="hydration" onclick="App.navigate('hydration')">
+        <svg viewBox="0 0 24 24"><path d="M12 2l6 10a6 6 0 11-12 0L12 2z"/></svg>
+        <span>Hydration</span>
+      </button>
+      <button class="bottom-nav-item" data-page="goals" onclick="App.navigate('goals')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+        <span>Goals</span>
+      </button>
+    </div>
+  </nav>
+
 </div>
 
 <!-- MODALS -->

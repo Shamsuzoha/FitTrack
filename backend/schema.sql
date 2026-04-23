@@ -1,7 +1,3 @@
--- FitTrack Database Schema v2
--- Run this file to initialize the database:
---   mysql -u root -p < schema.sql
-
 CREATE DATABASE IF NOT EXISTS fittrack CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE fittrack;
 

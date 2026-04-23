@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 
 const db = require('./db');
 
-// ── AUTH / USERS ───────────────────────────────────────────────────────────
+
 app.post('/api/auth/register', async (req, res) => {
   const { email, name, age, password } = req.body;
   if (!email || !name || !password) return res.status(400).json({ error: 'Email, name and password required' });
@@ -39,7 +39,7 @@ app.put('/api/users/:email', async (req, res) => {
   res.json({ message: 'Updated' });
 });
 
-// ── WORKOUTS ───────────────────────────────────────────────────────────────
+
 app.get('/api/workouts/sessions', async (req, res) => {
   const [rows] = await db.query(
     `SELECT ws.*, wp.Program_Name FROM Workout_Session ws
@@ -98,7 +98,7 @@ app.post('/api/workouts/programs', async (req, res) => {
   res.status(201).json({ program_id: result.insertId });
 });
 
-// ── NUTRITION ──────────────────────────────────────────────────────────────
+
 app.get('/api/nutrition/meals', async (req, res) => {
   const [meals] = await db.query(
     'SELECT * FROM Meal WHERE User_Email = ? AND Meal_Date = ? ORDER BY Meal_ID',
@@ -166,7 +166,7 @@ app.delete('/api/nutrition/meals/:id', async (req, res) => {
   res.json({ message: 'Deleted' });
 });
 
-// ── HYDRATION ──────────────────────────────────────────────────────────────
+
 app.get('/api/hydration', async (req, res) => {
   let query = 'SELECT * FROM Hydration_Log WHERE User_Email = ?';
   const params = [req.query.user];
@@ -204,7 +204,7 @@ app.delete('/api/hydration/:id', async (req, res) => {
   res.json({ message: 'Deleted' });
 });
 
-// ── BODY METRICS ───────────────────────────────────────────────────────────
+
 app.get('/api/body', async (req, res) => {
   const [rows] = await db.query(
     'SELECT * FROM Body_Metric WHERE User_Email = ? ORDER BY Date DESC LIMIT 30',
@@ -225,7 +225,7 @@ app.delete('/api/body/:id', async (req, res) => {
   res.json({ message: 'Deleted' });
 });
 
-// ── GOALS ──────────────────────────────────────────────────────────────────
+
 app.get('/api/goals', async (req, res) => {
   const [rows] = await db.query(
     'SELECT * FROM Goal WHERE User_Email = ? ORDER BY Created_At DESC',
@@ -250,7 +250,7 @@ app.delete('/api/goals/:id', async (req, res) => {
   res.json({ message: 'Deleted' });
 });
 
-// ── EXERCISES ──────────────────────────────────────────────────────────────
+
 app.get('/api/exercises', async (req, res) => {
   let query = 'SELECT * FROM Exercise_Library';
   const params = [];
@@ -268,7 +268,7 @@ app.post('/api/exercises', async (req, res) => {
   res.status(201).json({ name: exercise_name });
 });
 
-// ── FOODS ──────────────────────────────────────────────────────────────────
+
 app.get('/api/foods', async (req, res) => {
   let query = `SELECT f.*, np.Calories, np.Protein, np.Carbs, np.Fat
                FROM Food f LEFT JOIN Nutrient_Profile np ON f.Name = np.Food_Name`;
@@ -298,7 +298,7 @@ app.post('/api/foods', async (req, res) => {
   }
 });
 
-// ── DASHBOARD ──────────────────────────────────────────────────────────────
+
 app.get('/api/dashboard', async (req, res) => {
   const { user, date } = req.query;
   const today = date || new Date().toISOString().split('T')[0];
@@ -346,7 +346,7 @@ app.get('/api/dashboard', async (req, res) => {
   });
 });
 
-// ── CATCH-ALL ──────────────────────────────────────────────────────────────
+
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../frontend/index.html')));
 
 const PORT = process.env.PORT || 3001;

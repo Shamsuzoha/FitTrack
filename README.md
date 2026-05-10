@@ -8,14 +8,14 @@ Live demo: [fit-track-sigma-woad.vercel.app](https://fit-track-sigma-woad.vercel
 
 ## What it does
 
-- **Authentication** — Register and log in with email and password (passwords are securely hashed with bcrypt)
-- **Dashboard** — Get a daily snapshot of your calories, macros, hydration, active goals, and recent workouts
-- **Workouts** — Log sessions with exercises, sets, reps, and weights; organize sessions under workout programs; browse the built-in exercise library
-- **Nutrition** — Track meals and food items by day and view calorie and macro breakdowns (protein, carbs, fat)
-- **Hydration** — Log your daily water intake in litres with quick-add buttons and a rolling 7-day history
-- **Body Metrics** — Record weight and body fat percentage over time to see how you're progressing
-- **Goals** — Set targets for calories, weight, and body fat with a deadline, then mark them as achieved or abandoned when the time comes
-- **Exercise Library** — Search a catalogue of exercises with muscle group and equipment info
+- **Authentication**: Register and log in with email and password (passwords are securely hashed with bcrypt)
+- **Dashboard**: Get a daily snapshot of your calories, macros, hydration, active goals, and recent workouts
+- **Workouts**: Log sessions with exercises, sets, reps, and weights; organize sessions under workout programs; browse the built-in exercise library
+- **Nutrition**: Track meals and food items by day and view calorie and macro breakdowns (protein, carbs, fat)
+- **Hydration**: Log your daily water intake in litres with quick-add buttons and a rolling 7-day history
+- **Body Metrics**: Record weight and body fat percentage over time to see how you're progressing
+- **Goals**: Set targets for calories, weight, and body fat with a deadline, then mark them as achieved or abandoned when the time comes
+- **Exercise Library**: Search a catalogue of exercises with muscle group and equipment info
 
 ---
 
@@ -187,20 +187,20 @@ All endpoints are prefixed with `/api`.
 
 The MySQL schema has 13 tables:
 
-- `User` — accounts (email PK, name, age, hashed password)
-- `Workout_Program` — reusable programs created by users
-- `Follows` — junction table linking users to programs
-- `Workout_Session` — individual workout sessions
-- `Exercise_Library` — searchable exercise catalogue
-- `Exercise_Set_Log` — sets logged within a session
-- `Body_Metric` — weight and fat percentage entries
-- `Hydration_Log` — daily water intake entries
-- `Food` — food items with serving sizes
-- `Nutrient_Profile` — calorie and macro data per food
-- `Meal` — a typed meal (breakfast, lunch, etc.) on a given date
-- `Meal_Food` — junction table linking foods to meals with quantity
-- `Nutrition_Log` — nutrition log entries
-- `Goal` — user fitness goals with status tracking
+- `User`: accounts (email PK, name, age, hashed password)
+- `Workout_Program`: reusable programs created by users
+- `Follows`: junction table linking users to programs
+- `Workout_Session`: individual workout sessions
+- `Exercise_Library`: searchable exercise catalogue
+- `Exercise_Set_Log`: sets logged within a session
+- `Body_Metric`: weight and fat percentage entries
+- `Hydration_Log`: daily water intake entries
+- `Food`: food items with serving sizes
+- `Nutrient_Profile`: calorie and macro data per food
+- `Meal`: a typed meal (breakfast, lunch, etc.) on a given date
+- `Meal_Food`: junction table linking foods to meals with quantity
+- `Nutrition_Log`: nutrition log entries
+- `Goal`: user fitness goals with status tracking
 
 ---
 
